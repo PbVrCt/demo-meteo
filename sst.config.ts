@@ -6,6 +6,7 @@ export default {
     return {
       name: "demo-meteo",
       region: "ap-northeast-1",
+      stage: "dev",
     };
   },
   stacks(app) {
