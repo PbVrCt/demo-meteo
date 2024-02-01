@@ -1,4 +1,5 @@
 import { SSTConfig } from "sst";
+import { API } from "./src/stacks/api";
 import { NextjsSite } from "sst/constructs";
 
 export default {
@@ -10,12 +11,13 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(function Site({ stack }) {
-      const site = new NextjsSite(stack, "site");
-
-      stack.addOutputs({
-        SiteUrl: site.url,
-      });
-    });
+    app
+      .stack(function Site({ stack }) {
+        const site = new NextjsSite(stack, "site");
+        stack.addOutputs({
+          SiteUrl: site.url,
+        });
+      })
+      .stack(API);
   },
 } satisfies SSTConfig;
