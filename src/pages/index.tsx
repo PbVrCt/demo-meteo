@@ -1,13 +1,14 @@
-// import { Api } from "sst/node/api";
-import path from "path";
-import fs from "fs";
+import { Api } from "sst/node/api";
 import { useState } from "react";
 
 export async function getServerSideProps() {
-  // const response = await fetch(`${Api.api.url}/wind`);
-  // const htmlString = await response.text();
-  // return { props: { htmlString } };
-  return { props: {} };
+  const date = new Date();
+  date.setDate(date.getDate() - 2);
+  const response = await fetch(
+    `${Api.api.url}/wind?date=${date.toISOString().split("T")[0]}`,
+  );
+  const htmlString = await response.text();
+  return { props: { htmlString } };
 }
 
 function getPreviousDates(days: number): string[] {
@@ -22,7 +23,7 @@ function getPreviousDates(days: number): string[] {
 
 export default function Home({ htmlString }: { htmlString: string }) {
   const [showIframe, setShowIframe] = useState(false);
-  const [htmlContent, setHtmlContent] = useState("");
+  const [htmlContent, setHtmlContent] = useState(htmlString);
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState("");
   async function loadIframeContent(date: string) {
@@ -40,8 +41,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
       }}
     >
       <div style={{ width: "70%", height: "90%" }}>
-        {" "}
-        {showIframe && htmlContent && (
+        {htmlContent && (
           <iframe
             srcDoc={htmlContent}
             style={{ width: "100%", height: "1000px", border: "none" }}
