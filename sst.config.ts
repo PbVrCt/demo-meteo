@@ -1,6 +1,6 @@
 import { SSTConfig } from "sst";
-import { Web } from "./src/stacks/web";
-import { API } from "./src/stacks/api";
+import { Web } from "./stacks/web";
+import { API } from "./stacks/api";
 
 export default {
   config(_input) {

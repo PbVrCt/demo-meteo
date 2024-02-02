@@ -7,13 +7,13 @@ export function API({ stack, app }: StackContext) {
         app.mode === "dev"
           ? {
               function: {
-                handler: "src/packages/functions/src/python/wind/wind.handler",
+                handler: "packages/functions/src/python/wind/wind.handler",
                 runtime: "python3.11",
               },
             }
           : {
               function: {
-                handler: "src/packages/functions/src/python/wind",
+                handler: "packages/functions/src/python/wind",
                 runtime: "container",
                 container: {
                   cmd: ["wind.handler"],
