@@ -20,6 +20,8 @@ url = "https://api.open-meteo.com/v1/jma"
 @tracer.capture_lambda_handler
 @logger.inject_lambda_context
 def handler(event, context):
+    start_date = event["queryStringParameters"]["date"]
+    end_date = (pd.to_datetime(start_date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
     # Generate a grid of Tokyo
     lat_start, lat_end = 35.00, 37.00
     lon_start, lon_end = 138.00, 141.00
@@ -31,8 +33,8 @@ def handler(event, context):
         "latitude": latitudes.repeat(lon_steps),
         "longitude": np.tile(longitudes, lat_steps),
         "hourly": "wind_speed_10m",
-        "start_date": "2024-01-31",
-        "end_date": "2024-02-01",
+        "start_date": start_date,
+        "end_date": end_date,
     }
     responses = openmeteo.weather_api(url, params=params)
 

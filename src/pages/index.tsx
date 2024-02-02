@@ -26,7 +26,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState("");
   async function loadIframeContent(date: string) {
-    const response = await fetch(`/api/loadHtml?date=${date}`);
+    const response = await fetch(`/api/wind?date=${date}`);
     const htmlString = await response.text();
     setHtmlContent(htmlString);
     setShowIframe(true);
