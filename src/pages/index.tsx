@@ -10,7 +10,7 @@ export async function getServerSideProps() {
   return { props: {} };
 }
 
-function getPreviousDates(days) {
+function getPreviousDates(days: number): string[] {
   const dates = [];
   for (let i = 1; i <= days; i++) {
     const date = new Date();
@@ -25,7 +25,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
   const [htmlContent, setHtmlContent] = useState("");
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState("");
-  async function loadIframeContent(date) {
+  async function loadIframeContent(date: string) {
     const response = await fetch(`/api/loadHtml?date=${date}`);
     const htmlString = await response.text();
     setHtmlContent(htmlString);
