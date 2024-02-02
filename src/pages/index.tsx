@@ -12,7 +12,7 @@ export async function getServerSideProps() {
 
 function getPreviousDates(days: number): string[] {
   const dates = [];
-  for (let i = 1; i <= days; i++) {
+  for (let i = 2; i <= days; i++) {
     const date = new Date();
     date.setDate(date.getDate() - i);
     dates.push(date.toISOString().split("T")[0]);
