@@ -1,12 +1,14 @@
 import { Api } from "sst/node/api";
 import { useState } from "react";
 
-export async function getServerSideProps() {
+function getLatestDate(): string {
   const date = new Date();
   date.setDate(date.getDate() - 2);
-  const response = await fetch(
-    `${Api.api.url}/wind?date=${date.toISOString().split("T")[0]}`,
-  );
+  return date.toISOString().split("T")[0];
+}
+
+export async function getServerSideProps() {
+  const response = await fetch(`${Api.api.url}/wind?date=${getLatestDate()}`);
   const htmlString = await response.text();
   return { props: { htmlString } };
 }
@@ -24,7 +26,7 @@ function getPreviousDates(days: number): string[] {
 export default function Home({ htmlString }: { htmlString: string }) {
   const [htmlContent, setHtmlContent] = useState(htmlString);
   const previousDates = getPreviousDates(365);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(`${getLatestDate()}`);
   async function loadIframeContent(date: string) {
     const response = await fetch(`/api/wind?date=${date}`);
     const htmlString = await response.text();
