@@ -18,7 +18,26 @@ export function API({ stack, app }: StackContext) {
                 runtime: "container",
                 container: {
                   cmd: ["hello.handler"],
-                  file: "python/hello/hellow.Dockerfile",
+                  file: "python/hello/hello.Dockerfile",
+                },
+                architecture: "x86_64",
+              },
+            },
+      "GET /wind":
+        app.mode === "dev"
+          ? {
+              function: {
+                handler: "src/packages/functions/src/python/wind/wind.handler",
+                runtime: "python3.11",
+              },
+            }
+          : {
+              function: {
+                handler: "src/packages/functions/src/python/wind",
+                runtime: "container",
+                container: {
+                  cmd: ["wind.handler"],
+                  file: "python/wind/wind.Dockerfile",
                 },
                 architecture: "x86_64",
               },
