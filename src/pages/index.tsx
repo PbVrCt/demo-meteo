@@ -22,7 +22,6 @@ function getPreviousDates(days: number): string[] {
 }
 
 export default function Home({ htmlString }: { htmlString: string }) {
-  const [showIframe, setShowIframe] = useState(false);
   const [htmlContent, setHtmlContent] = useState(htmlString);
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState("");
@@ -30,7 +29,6 @@ export default function Home({ htmlString }: { htmlString: string }) {
     const response = await fetch(`/api/wind?date=${date}`);
     const htmlString = await response.text();
     setHtmlContent(htmlString);
-    setShowIframe(true);
   }
 
   return (
