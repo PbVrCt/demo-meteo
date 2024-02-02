@@ -24,9 +24,9 @@ export default function Home({ htmlString }: { htmlString: string }) {
   const [showIframe, setShowIframe] = useState(false);
   const [htmlContent, setHtmlContent] = useState("");
   const previousDates = getPreviousDates(365);
-
-  async function loadIframeContent() {
-    const response = await fetch("/api/loadHtml");
+  const [selectedDate, setSelectedDate] = useState("");
+  async function loadIframeContent(date) {
+    const response = await fetch(`/api/loadHtml?date=${date}`);
     const htmlString = await response.text();
     setHtmlContent(htmlString);
     setShowIframe(true);
@@ -57,6 +57,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
         }}
       >
         <select
+          onChange={(e) => setSelectedDate(e.target.value)}
           style={{ marginTop: "1rem", marginRight: "1rem", width: "200px" }}
         >
           {previousDates.map((date) => (
@@ -66,7 +67,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
           ))}
         </select>
         <button
-          onClick={loadIframeContent}
+          onClick={() => loadIframeContent(selectedDate)}
           style={{ marginTop: "1rem", marginLeft: "1rem", width: "200px" }}
         >
           Load Wind Speed Heatmap
