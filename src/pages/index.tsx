@@ -19,10 +19,8 @@ function getPreviousDates(days: number): string[] {
 }
 
 export default function Home() {
-  const { htmlContent, setHtmlContent } = useHtmlContent();
+  const { htmlContent, setHtmlContent, apiType, setApiType, selectedDate, setSelectedDate } = useHtmlContent();
   const previousDates = getPreviousDates(365);
-  const [selectedDate, setSelectedDate] = useState(`${getLatestDate()}`);
-  const [apiType, setApiType] = useState("wind");
   const loadIframeContent = useCallback(
     async (date: string) => {
       const response = await fetch(`/api/${apiType}?date=${date}`);
@@ -88,6 +86,7 @@ export default function Home() {
         >
           <select
             onChange={(e) => setApiType(e.target.value)}
+          value={apiType}
             style={{
               marginBottom: "1rem",
               marginRight: "1rem",
@@ -99,6 +98,7 @@ export default function Home() {
           </select>
           <select
             onChange={(e) => setSelectedDate(e.target.value)}
+          value={selectedDate}
             style={{
               marginBottom: "1rem",
               marginRight: "1rem",
