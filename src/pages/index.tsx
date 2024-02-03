@@ -1,4 +1,5 @@
 import { Api } from "sst/node/api";
+import Link from "next/link";
 import { useState } from "react";
 
 function getLatestDate(): string {
@@ -41,6 +42,20 @@ export default function Home({ htmlString }: { htmlString: string }) {
         justifyContent: "left",
       }}
     >
+      <div
+        style={{
+          textAlign: "center",
+          position: "fixed",
+          left: "0",
+          right: "0",
+          bottom: "1rem",
+        }}
+      >
+        <button style={{ marginRight: "1rem" }}>Demo</button>
+        <Link href="/diagram" passHref>
+          <button>Diagram</button>
+        </Link>
+      </div>
       <div style={{ width: "70%", height: "90%" }}>
         {htmlContent && (
           <iframe
