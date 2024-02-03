@@ -27,8 +27,9 @@ export default function Home({ htmlString }: { htmlString: string }) {
   const [htmlContent, setHtmlContent] = useState(htmlString);
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState(`${getLatestDate()}`);
+  const [apiType, setApiType] = useState("wind");
   async function loadIframeContent(date: string) {
-    const response = await fetch(`/api/wind?date=${date}`);
+    const response = await fetch(`/api/${apiType}?date=${date}`);
     const htmlString = await response.text();
     setHtmlContent(htmlString);
   }
@@ -53,9 +54,18 @@ export default function Home({ htmlString }: { htmlString: string }) {
           width: "30%",
           height: "90%",
           display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
         }}
       >
+        <select
+          onChange={(e) => setApiType(e.target.value)}
+          style={{ marginBottom: "1rem", width: "200px" }}
+        >
+          <option value="wind">Wind</option>
+          <option value="temperature">Temperature</option>
+        </select>
         <select
           onChange={(e) => setSelectedDate(e.target.value)}
           style={{ marginTop: "1rem", marginRight: "1rem", width: "200px" }}
@@ -70,7 +80,7 @@ export default function Home({ htmlString }: { htmlString: string }) {
           onClick={() => loadIframeContent(selectedDate)}
           style={{ marginTop: "1rem", marginLeft: "1rem", width: "200px" }}
         >
-          Load Wind Speed Heatmap
+          Load data
         </button>
       </div>
     </main>
