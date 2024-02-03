@@ -54,34 +54,60 @@ export default function Home({ htmlString }: { htmlString: string }) {
           width: "30%",
           height: "90%",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
+          position: "absolute",
+          right: "0%", // Center the selectors and button halfway through the screen vertically
         }}
       >
-        <select
-          onChange={(e) => setApiType(e.target.value)}
-          style={{ marginBottom: "1rem", width: "200px" }}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <option value="wind">Wind</option>
-          <option value="temperature">Temperature</option>
-        </select>
-        <select
-          onChange={(e) => setSelectedDate(e.target.value)}
-          style={{ marginTop: "1rem", marginRight: "1rem", width: "200px" }}
+          <select
+            onChange={(e) => setApiType(e.target.value)}
+            style={{
+              marginBottom: "1rem",
+              marginRight: "1rem",
+              width: "200px",
+            }}
+          >
+            <option value="wind">Wind</option>
+            <option value="temperature">Temperature</option>
+          </select>
+          <select
+            onChange={(e) => setSelectedDate(e.target.value)}
+            style={{
+              marginBottom: "1rem",
+              marginRight: "1rem",
+              width: "200px",
+            }}
+          >
+            {previousDates.map((date) => (
+              <option key={date} value={date}>
+                {date}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          {previousDates.map((date) => (
-            <option key={date} value={date}>
-              {date}
-            </option>
-          ))}
-        </select>
-        <button
-          onClick={() => loadIframeContent(selectedDate)}
-          style={{ marginTop: "1rem", marginLeft: "1rem", width: "200px" }}
-        >
-          Load data
-        </button>
+          <button
+            onClick={() => loadIframeContent(selectedDate)}
+            style={{ marginBottom: "1rem", width: "200px" }}
+          >
+            Load data
+          </button>
+        </div>
       </div>
     </main>
   );
