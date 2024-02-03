@@ -60,11 +60,11 @@ def handler(event, context):
         values = hourly.Variables(0).ValuesAsNumpy().tolist()
         lat = response.Latitude()
         lon = response.Longitude()
-        for timestamp, temperature in zip(timestamps, values):
+        for timestamp, value in zip(timestamps, values):
             time_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
             if time_str not in heatmap_data:
                 heatmap_data[time_str] = []
-            heatmap_data[time_str].append([lat, lon, temperature])
+            heatmap_data[time_str].append([lat, lon, value])
             if time_str not in time_index:
                 time_index.append(time_str)
     data = [frame for frame in heatmap_data.values()]
