@@ -1,17 +1,11 @@
-import { Api } from "sst/node/api";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useHtmlContent } from "../components/htmlContentContext";
 
 function getLatestDate(): string {
   const date = new Date();
   date.setDate(date.getDate() - 2);
   return date.toISOString().split("T")[0];
-}
-
-export async function getServerSideProps() {
-  const response = await fetch(`${Api.api.url}/wind?date=${getLatestDate()}`);
-  const htmlString = await response.text();
-  return { props: { htmlString } };
 }
 
 function getPreviousDates(days: number): string[] {
@@ -24,16 +18,25 @@ function getPreviousDates(days: number): string[] {
   return dates;
 }
 
-export default function Home({ htmlString }: { htmlString: string }) {
-  const [htmlContent, setHtmlContent] = useState(htmlString);
+export default function Home() {
+  const { htmlContent, setHtmlContent } = useHtmlContent();
   const previousDates = getPreviousDates(365);
   const [selectedDate, setSelectedDate] = useState(`${getLatestDate()}`);
   const [apiType, setApiType] = useState("wind");
-  async function loadIframeContent(date: string) {
-    const response = await fetch(`/api/${apiType}?date=${date}`);
-    const htmlString = await response.text();
-    setHtmlContent(htmlString);
-  }
+  const loadIframeContent = useCallback(
+    async (date: string) => {
+      const response = await fetch(`/api/${apiType}?date=${date}`);
+      const htmlContent = await response.text();
+      setHtmlContent(htmlContent);
+    },
+    [apiType, setHtmlContent],
+  );
+
+  useEffect(() => {
+    if (selectedDate && !htmlContent) {
+      loadIframeContent(selectedDate);
+    }
+  }, [selectedDate, loadIframeContent, htmlContent]);
 
   return (
     <main
