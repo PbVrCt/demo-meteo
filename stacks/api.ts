@@ -22,6 +22,26 @@ export function API({ stack, app }: StackContext) {
                 architecture: "x86_64",
               },
             },
+      "GET /temperature":
+        app.mode === "dev"
+          ? {
+              function: {
+                handler:
+                  "packages/functions/src/python/temperature/temperature.handler",
+                runtime: "python3.11",
+              },
+            }
+          : {
+              function: {
+                handler: "packages/functions/src/python/temperature",
+                runtime: "container",
+                container: {
+                  cmd: ["temperature.handler"],
+                  file: "python/temperature/temperature.Dockerfile",
+                },
+                architecture: "x86_64",
+              },
+            },
     },
   });
 

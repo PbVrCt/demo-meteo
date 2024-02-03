@@ -1,0 +1,7 @@
+aws_lambda_powertools[all]
+numpy
+openmeteo_requests
+awswrangler
+folium
+branca
+
