@@ -1,3 +1,7 @@
+"""
+Generates a heatmap of temperature data over Tokyo using data from the OpenMeteo API.
+"""
+
 import numpy as np
 import openmeteo_requests
 
@@ -40,7 +44,10 @@ def handler(event, context):
         responses = openmeteo.weather_api(url, params=params)
     except Exception as e:
         logger.error(f"Error fetching data from OpenMeteo: {e}")
-        return {"statusCode": 500, "body": '{"error": true, "reason": "Daily API request limit exceeded. Please try again tomorrow."}'}
+        return {
+            "statusCode": 500,
+            "body": '{"error": true, "reason": "Daily API request limit exceeded. Please try again tomorrow."}',
+        }
 
     base_map = folium.Map(
         location=[(lat_start + lat_end) / 2, (lon_start + lon_end) / 2],
