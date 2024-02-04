@@ -51,3 +51,5 @@ next-env.d.ts
 .envrc
 
 cdk.context.json
+
+**__pycache__
