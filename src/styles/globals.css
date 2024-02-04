@@ -32,6 +32,41 @@ body {
 }
 
 @layer utilities {
+  .throbber {
+    border: 4px solid rgba(255, 255, 255, 0.6);
+    border-top: 4px solid blue;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 1s linear infinite;
+    /* margin-top: 8px; */
+  }
+
+  .throbber-wrapper {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s;
+  }
+
+  .throbber-wrapper .throbber {
+    margin-top: 8px; /* Add space above the throbber */
+  }
+
+  .button + .throbber-wrapper {
+    height: 44px; /* Adjust the height to fit the throbber */
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@layer utilities {
   .text-balance {
     text-wrap: balance;
   }

@@ -20,6 +20,8 @@ function getPreviousDates(days: number): string[] {
 
 export default function Home() {
   const {
+    isLoading,
+    setIsLoading,
     htmlContent,
     setHtmlContent,
     apiType,
@@ -30,11 +32,13 @@ export default function Home() {
   const previousDates = getPreviousDates(365);
   const loadIframeContent = useCallback(
     async (date: string) => {
+      setIsLoading(true);
       const response = await fetch(`/api/${apiType}?date=${date}`);
       const htmlContent = await response.text();
       setHtmlContent(htmlContent);
+      setIsLoading(false);
     },
-    [apiType, setHtmlContent],
+    [apiType, setHtmlContent, setIsLoading],
   );
 
   useEffect(() => {
@@ -120,14 +124,18 @@ export default function Home() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            marginTop: "3rem",
           }}
         >
           <button
             className="button"
             onClick={() => loadIframeContent(selectedDate)}
           >
-            Load data
+            {isLoading ? <span>Loading...</span> : <span>Load data</span>}
           </button>
+          <div className="throbber-wrapper">
+            {isLoading && <div className="throbber"></div>}
+          </div>
         </div>
       </div>
     </main>

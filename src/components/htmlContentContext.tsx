@@ -2,9 +2,11 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface HtmlContentContextProps {
   htmlContent: string;
+  isLoading: boolean;
   apiType: string;
   selectedDate: string;
   setHtmlContent: (html: string) => void;
+  setIsLoading: (loading: boolean) => void;
   setApiType: (type: string) => void;
   setSelectedDate: (date: string) => void;
 }
@@ -23,13 +25,17 @@ export const useHtmlContent = (): HtmlContentContextProps => {
 
 export const HtmlContentProvider = ({ children }: { children: ReactNode }) => {
   const [htmlContent, setHtmlContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [apiType, setApiType] = useState("wind");
   const [selectedDate, setSelectedDate] = useState(getLatestDate());
+
   return (
     <HtmlContentContext.Provider
       value={{
         htmlContent,
         setHtmlContent,
+        isLoading,
+        setIsLoading,
         apiType,
         setApiType,
         selectedDate,
