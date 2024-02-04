@@ -15,7 +15,7 @@ export function API({ stack, app }: StackContext) {
             }
           : {
               function: {
-                handler: "packages/functions/src/python/wind",
+                handler: "packages/functions/src",
                 runtime: "container",
                 container: {
                   cmd: ["wind.handler"],
@@ -35,7 +35,7 @@ export function API({ stack, app }: StackContext) {
             }
           : {
               function: {
-                handler: "packages/functions/src/python/temperature",
+                handler: "packages/functions/src",
                 runtime: "container",
                 container: {
                   cmd: ["temperature.handler"],
