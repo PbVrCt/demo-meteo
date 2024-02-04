@@ -138,6 +138,46 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div
+        className="info-text"
+        style={{
+          position: "absolute",
+          textAlign: "center",
+          bottom: "15%",
+          left: "85%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <p>
+          Made with the AWS CDK and NextJs.
+          ***REMOVED***
+          ***REMOVED***
+          <a
+            style={{ textDecoration: "underline" }}
+            href=""
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Link to the code.
+          </a>
+          ***REMOVED***
+          ***REMOVED***
+       ***REMOVED***
+          ***REMOVED***
+       
+          ***REMOVED***
+          ***REMOVED***
+          Data from:
+          ***REMOVED***
+          <a
+            href="https://open-meteo.com/en/docs/jma-api"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://open-meteo.com/
+          </a>
+        </p>
+      </div>
     </main>
   );
 }
