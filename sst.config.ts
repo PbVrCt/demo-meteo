@@ -1,6 +1,7 @@
 import { SSTConfig } from "sst";
-import { Web } from "./stacks/web";
+import { DNS } from "./stacks/dns";
 import { API } from "./stacks/api";
+import { Web } from "./stacks/web";
 
 export default {
   config(_input) {
@@ -11,6 +12,6 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(API).stack(Web);
+    app.stack(DNS).stack(API).stack(Web);
   },
 } satisfies SSTConfig;

@@ -1,6 +1,8 @@
-import { StackContext, Api } from "sst/constructs";
+import { StackContext, Api, use } from "sst/constructs";
+import { DNS } from "./dns";
 
 export function API({ stack, app }: StackContext) {
+  const dns = use(DNS);
   const api = new Api(stack, "api", {
     routes: {
       "GET /wind":
@@ -43,10 +45,16 @@ export function API({ stack, app }: StackContext) {
               },
             },
     },
+    customDomain:
+      stack.stage === "production"
+        ? {
+            domainName: "api." + dns!.domain,
+          }
+        : undefined,
   });
 
   stack.addOutputs({
-    ApiEndpoint: api.url,
+    API: api.customDomainUrl || api.url,
   });
 
   return api;
