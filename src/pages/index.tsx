@@ -29,7 +29,7 @@ export default function Home() {
     selectedDate,
     setSelectedDate,
   } = useHtmlContent();
-  const previousDates = getPreviousDates(365);
+  const previousDates = getPreviousDates(150);
   const loadIframeContent = useCallback(
     async (date: string) => {
       setIsLoading(true);
