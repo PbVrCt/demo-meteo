@@ -19,7 +19,14 @@ function getPreviousDates(days: number): string[] {
 }
 
 export default function Home() {
-  const { htmlContent, setHtmlContent, apiType, setApiType, selectedDate, setSelectedDate } = useHtmlContent();
+  const {
+    htmlContent,
+    setHtmlContent,
+    apiType,
+    setApiType,
+    selectedDate,
+    setSelectedDate,
+  } = useHtmlContent();
   const previousDates = getPreviousDates(365);
   const loadIframeContent = useCallback(
     async (date: string) => {
@@ -52,9 +59,13 @@ export default function Home() {
           bottom: "1rem",
         }}
       >
-        <button style={{ marginRight: "1rem" }}>Demo</button>
+        <Link href="/" passHref>
+          <button className="button">Demo</button>
+        </Link>
         <Link href="/diagram" passHref>
-          <button>Diagram</button>
+          <button type="button" className="button">
+            Diagram
+          </button>
         </Link>
       </div>
       <div style={{ width: "70%", height: "90%" }}>
@@ -86,24 +97,16 @@ export default function Home() {
         >
           <select
             onChange={(e) => setApiType(e.target.value)}
-          value={apiType}
-            style={{
-              marginBottom: "1rem",
-              marginRight: "1rem",
-              width: "200px",
-            }}
+            value={apiType}
+            className="button"
           >
             <option value="wind">Wind</option>
             <option value="temperature">Temperature</option>
           </select>
           <select
             onChange={(e) => setSelectedDate(e.target.value)}
-          value={selectedDate}
-            style={{
-              marginBottom: "1rem",
-              marginRight: "1rem",
-              width: "200px",
-            }}
+            value={selectedDate}
+            className="button"
           >
             {previousDates.map((date) => (
               <option key={date} value={date}>
@@ -120,8 +123,8 @@ export default function Home() {
           }}
         >
           <button
+            className="button"
             onClick={() => loadIframeContent(selectedDate)}
-            style={{ marginBottom: "1rem", width: "200px" }}
           >
             Load data
           </button>

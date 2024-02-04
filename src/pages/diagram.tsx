@@ -18,10 +18,10 @@ export default function Diagram() {
         }}
       >
         <Link href="/" passHref>
-          <button style={{ marginRight: "1rem" }}>Demo</button>
+          <button className="button">Demo</button>
         </Link>
         <Link href="/diagram" passHref>
-          <button>Diagram</button>
+          <button className="button">Diagram</button>
         </Link>
       </div>
       <div

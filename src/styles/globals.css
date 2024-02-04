@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
 }
 
+@layer utilities {
+  .button {
+    @apply mx-4;
+    @apply my-2;
   }
 }
 
