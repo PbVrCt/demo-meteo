@@ -1,3 +1,4 @@
+import "../styles/globals.css";
 import { HtmlContentProvider } from "../components/htmlContentContext";
 
 function MyApp({
