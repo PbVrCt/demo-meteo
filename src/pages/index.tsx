@@ -150,25 +150,10 @@ export default function Home() {
       >
         <p>
           Made with the AWS CDK and NextJs.
-          ***REMOVED***
-          ***REMOVED***
-          <a
-            style={{ textDecoration: "underline" }}
-            href=""
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Link to the code.
-          </a>
-          ***REMOVED***
-          ***REMOVED***
-       ***REMOVED***
-          ***REMOVED***
-       
-          ***REMOVED***
-          ***REMOVED***
+          <br />
+          <br />
           Data from:
-          ***REMOVED***
+          <br />
           <a
             href="https://open-meteo.com/en/docs/jma-api"
             target="_blank"
